@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Calculator</title>
+
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="mystyle.css">
+
+</head>
+<body>
+
+<table align="center" border="1" width=100%>
+<tr>
+        <th>
+            <a href="home.htm">Home 
+            </a>
+        </th>
+        <th>
+            <a href="localdishes.htm">Local Dishes</font>
+            </a>
+        </th>
+        <th>
+            <a href="historicalplaces.htm">Historical Places
+            </a>
+        </th>
+        <th>
+            <a href=" usefullinks.htm">Useful Links
+            </a>
+        </th>
+        <th>
+            <a href="aboutme.htm ">About Us
+            </a>
+        </th>
+        <th>
+            <a href="contactme.htm">Contact Me
+            </a>
+        </th>
+        <th>
+            <a href="calculator.html"><font size="5">Calculator
+            </a>
+        </th>
+</tr>
+</table>  
+
+<br>
+
+<br>
+
+<center>
+            <div class="calculator col-lg-12">
+                <input type="text" value="0" id="text" class="kutucuk" readonly>
+                
+                <div>
+                    <input type="button" value="7" class="button" onclick="printNum(7)">
+                    <input type="button" value="8" class="button" onclick="printNum(8)">
+                    <input type="button" value="9" class="button" onclick="printNum(9)">
+                </div>
+                
+                <br>
+                
+                <div>
+                    <input type="button" value="4" class="button" onclick="printNum(4)">
+                    <input type="button" value="5" class="button" onclick="printNum(5)">
+                    <input type="button" value="6" class="button" onclick="printNum(6)">
+                </div>
+                
+                <br>
+                
+                <div>
+                    <input type="button" value="1" class="button" onclick="printNum(1)">
+                    <input type="button" value="2" class="button" onclick="printNum(2)">
+                    <input type="button" value="3" class="button" onclick="printNum(3)">
+                </div>
+                
+                <br>
+                
+                <div>
+                    <input type="button" value="0" class="button" onclick="printNum(0)">
+                    <input type="button" value="." class="button" onclick="appendDot()">
+                    <input type="button" value="/" class="button" onclick="divide()">
+                </div>
+                
+                <br>
+                
+                <div>
+                    <input type="button" value="+" class="button" onclick="add()">
+                    <input type="button" value="-" class="button" onclick="subtract()">
+                    <input type="button" value="*" class="button" onclick="multiply()">
+                </div>
+                
+                <br>
+                
+                <div>
+                    <input type="button" value="1/x" class="button" onclick="oneover()">
+                    <input type="button" value="C"   class="button" onclick="reset()">
+                    <input type="button" value="="   class="button" onclick="equals()">
+                </div>
+            </div>
+        </center>
+        
+        <script>
+            var inputField = document.getElementById('text');
+            
+            function printNum(number) {
+                inputField.value = inputField.value == "0" ? String(number) : inputField.value + String(number);
+            }
+            
+            function appendDot() {
+                if(inputField.value.substring(inputField.value.length - 2, inputField.value.length - 1) == "+" ||
+                   inputField.value.substring(inputField.value.length - 2, inputField.value.length - 1) == "-" ||
+                   inputField.value.substring(inputField.value.length - 2, inputField.value.length - 1) == "*" ||
+                   inputField.value.substring(inputField.value.length - 2, inputField.value.length - 1) == "/") return;
+                
+                if(inputField.value.substring(inputField.value.length - 1, inputField.value) == ".") return;
+                
+                if((!inputField.value.includes("+") && !inputField.value.includes("*") &&
+                    !inputField.value.includes("/") && !inputField.value.includes("-")) &&
+                     inputField.value.includes(".") && inputField.value.split(".").length - 1 >= 2) return;
+                
+                inputField.value += ".";
+            }
+            
+            function reset() {
+                inputField.value = "0";
+            }
+            
+            function add() {
+                if(inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")) {
+                    return;
+                }
+                
+                inputField.value += " + ";
+            }
+            
+            function subtract() {
+                if(inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")) {
+                    return;
+                }
+                
+                inputField.value += " - ";
+            }
+            
+            function multiply() {
+                if(inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")) {
+                    return;
+                }
+                
+                inputField.value += " * ";
+            }
+            
+            function divide() {
+                if(inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")) {
+                    return;
+                }
+                
+                inputField.value += " / ";
+            }
+            
+            function oneover() {
+                if(inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")) {
+                    return;
+                }
+                
+                inputField.value = parseFloat(1 / inputField.value);
+            }
+            
+            function equals() {
+                if(inputField.value.includes("+")) {
+                    inputField.value = String(parseFloat(inputField.value.split('+')[0].substr(0, inputField.value.split('+')[0].length)) + parseFloat(inputField.value.split('+')[1].substr(0, inputField.value.split('+')[1].length)));
+                } else if(inputField.value.includes("-")) {
+                    inputField.value = String(parseFloat(inputField.value.split('-')[0].substr(0, inputField.value.split('-')[0].length)) - parseFloat(inputField.value.split('-')[1].substr(0, inputField.value.split('-')[1].length)));
+                } else if(inputField.value.includes("*")) {
+                    inputField.value = String(parseFloat(inputField.value.split('*')[0].substr(0, inputField.value.split('*')[0].length)) * parseFloat(inputField.value.split('*')[1].substr(0, inputField.value.split('*')[1].length)));
+                } else if(inputField.value.includes("/")) {
+                    inputField.value = String(parseFloat(inputField.value.split('/')[0].substr(0, inputField.value.split('/')[0].length)) / parseFloat(inputField.value.split('/')[1].substr(0, inputField.value.split('/')[1].length)));
+                }
+            }
+        </script>
+        
+    </body>
+    
+</html>
